@@ -16,10 +16,14 @@ type Route struct {
 
 func (r *Route) Estimate(cityList map[int]City) {
 	// select cities
-	//cityNumberList := make([]int, numberOfCities)
-	//for i := 0; i < numberOfCities; i++ {
-	//
-	//}
+	cityNumberList := make([]City, numberOfCities)
+	for i := 0; i < len(r.CitySelectionOrder); i++ {
+		// TODO: remove duplicates
+		num := r.CitySelectionOrder[i]
+		cityNumberList[i] = cityList[num]
+	}
+
+	fmt.Println(cityNumberList)
 }
 
 const populationLength = 10
