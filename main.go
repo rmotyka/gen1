@@ -14,8 +14,16 @@ type Route struct {
 	CitySelectionOrder []int
 }
 
-const populationLength = 100
-const numberOfCities = 3
+func (r *Route) Estimate(cityList map[int]City) {
+	// select cities
+	//cityNumberList := make([]int, numberOfCities)
+	//for i := 0; i < numberOfCities; i++ {
+	//
+	//}
+}
+
+const populationLength = 10
+const numberOfCities = 10
 const maxCoordinate = 100
 
 func main() {
@@ -26,12 +34,17 @@ func main() {
 
 	population:=generateInitalPopulation()
 	fmt.Println(population)
+
+	for _, item:=range population  {
+		item.Estimate(cityList)
+	}
+
 }
 
 func generateInitalSelectionOrder() []int {
 	citySelectionOrder:=make([]int, numberOfCities)
 	for i := 0; i < numberOfCities; i++ {
-		citySelectionOrder[i] = rand.Intn(numberOfCities)
+		citySelectionOrder[i] = rand.Intn(numberOfCities-i)
 	}
 
 	return citySelectionOrder
