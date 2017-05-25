@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 type City struct {
 	X int
@@ -11,22 +14,44 @@ type Route struct {
 	CitySelectionOrder []int
 }
 
-func getCityList() (map[int]City) {
-	cityList := make(map[int]City)
-	cityList[0] = City{0,0}
-	cityList[1] = City{1,1}
-	cityList[3] = City{3,5}
-
-	return cityList;
-}
+const populationLength = 100
+const numberOfCities = 3
+const maxCoordinate = 100
 
 func main() {
 	fmt.Println("gen2")
 
-	//cityList := getCityList()
+	cityList := getCityList()
+	fmt.Println(cityList)
+
 	population:=generateInitalPopulation()
-
+	fmt.Println(population)
 }
-func generateInitalPopulation() ([]Route) {
 
+func generateInitalSelectionOrder() []int {
+	citySelectionOrder:=make([]int, numberOfCities)
+	for i := 0; i < numberOfCities; i++ {
+		citySelectionOrder[i] = rand.Intn(numberOfCities)
+	}
+
+	return citySelectionOrder
+}
+
+func getCityList() (map[int]City) {
+	cityList := make(map[int]City, numberOfCities)
+	for i := 0; i < numberOfCities; i++ {
+		cityList[i] = City{rand.Intn(maxCoordinate),rand.Intn(maxCoordinate)}
+	}
+
+	return cityList;
+}
+
+func generateInitalPopulation() ([]Route) {
+	population := make([]Route, populationLength)
+	for i := 0; i < populationLength; i++ {
+		citySelectionOrder :=generateInitalSelectionOrder()
+		population[i] = Route{ citySelectionOrder }
+	}
+
+	return population
 }
