@@ -6,6 +6,7 @@ import (
 )
 
 type City struct {
+	Id int
 	X int
 	Y int
 }
@@ -14,17 +15,25 @@ type Route struct {
 	CitySelectionOrder []int
 }
 
-func (r *Route) Estimate(cityList map[int]City) {
-	// select cities
-	cityNumberList := make([]City, numberOfCities)
-	for i := 0; i < len(r.CitySelectionOrder); i++ {
-		// TODO: remove duplicates
-		num := r.CitySelectionOrder[i]
-		cityNumberList[i] = cityList[num]
+func (r *Route) Estimate(cityList []City) {
+	cities:=selectCities(cityList, r.CitySelectionOrder)
+	fmt.Println("City in Route")
+	fmt.Println(cities)
+}
+
+func selectCities(cityList []City, citySelectionOrder []int) []City {
+	outCityList := make([]City, len(citySelectionOrder))
+	for i:=0; i<len(citySelectionOrder); i++ {
+		indexOfCity := citySelectionOrder[i]
+		city := cityList[indexOfCity]
+		outCityList[i] = city
+
+		cityList = append(cityList[:indexOfCity], cityList[indexOfCity+1:]...)
 	}
 
-	fmt.Println(cityNumberList)
+	return outCityList
 }
+
 
 const populationLength = 10
 const numberOfCities = 10
@@ -34,9 +43,11 @@ func main() {
 	fmt.Println("gen2")
 
 	cityList := getCityList()
+	fmt.Println("Inital city list")
 	fmt.Println(cityList)
 
 	population:=generateInitalPopulation()
+	fmt.Println("Population")
 	fmt.Println(population)
 
 	for _, item:=range population  {
@@ -54,10 +65,10 @@ func generateInitalSelectionOrder() []int {
 	return citySelectionOrder
 }
 
-func getCityList() (map[int]City) {
-	cityList := make(map[int]City, numberOfCities)
+func getCityList() ([]City) {
+	cityList := make([]City, numberOfCities)
 	for i := 0; i < numberOfCities; i++ {
-		cityList[i] = City{rand.Intn(maxCoordinate),rand.Intn(maxCoordinate)}
+		cityList[i] = City{ i,rand.Intn(maxCoordinate),rand.Intn(maxCoordinate)}
 	}
 
 	return cityList;
