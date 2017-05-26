@@ -28,6 +28,7 @@ func selectCities(cityList []City, citySelectionOrder []int) []City {
 		city := cityList[indexOfCity]
 		outCityList[i] = city
 
+		// remove indexOfCity from cityList:
 		cityList = append(cityList[:indexOfCity], cityList[indexOfCity+1:]...)
 	}
 
@@ -51,7 +52,9 @@ func main() {
 	fmt.Println(population)
 
 	for _, item:=range population  {
-		item.Estimate(cityList)
+		cityListCopy := make([]City, len(cityList))
+		copy(cityListCopy, cityList)
+		item.Estimate(cityListCopy)
 	}
 
 }
