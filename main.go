@@ -98,21 +98,78 @@ func main() {
 		fmt.Println(*item)
 	}
 
-	// estimation
-	for _, item:=range population  {
-		item.Estimate(cityList, distances)
-	}
+	for cycleNumber := 0; cycleNumber < 10 ; cycleNumber++ {
+		fmt.Println("Number of cycle ", cycleNumber)
 
-	// selection
-	newPopulation:=make([]*Route, len(population))
-	for i:=0; i< populationLength; i++ {
-		item := selectFromPopulation(population)
-		newPopulation[i] = item
-	}
+		// estimation
+		for _, item := range population {
+			item.Estimate(cityList, distances)
+		}
 
-	fmt.Println("new population")
-	for _, item := range newPopulation	{
-		fmt.Println(*item)
+		// selection
+		newPopulation := make([]*Route, len(population))
+		for i := 0; i < populationLength; i++ {
+			item := selectFromPopulation(population)
+			newPopulation[i] = item
+		}
+
+		fmt.Println("new population")
+		for _, item := range newPopulation {
+			fmt.Println(*item)
+		}
+
+		// crossing
+		// TODO: verify if it works
+		crossing(newPopulation)
+		fmt.Println("after crossing")
+		for _, item := range newPopulation {
+			fmt.Println(*item)
+		}
+
+		// mutation
+		mutate(newPopulation)
+		fmt.Println("after mutation")
+		for _, item := range newPopulation {
+			fmt.Println(*item)
+		}
+
+		// repeat
+		population = newPopulation
+	}
+}
+
+func mutate(population []*Route) {
+	numberOfMutations := int(populationLength / 4);
+	for i :=0; i<numberOfMutations; i++ {
+		itemIndex := rand.Intn(len(population))
+		item := population[itemIndex]
+
+		cityIndex := rand.Intn(numberOfCities)
+		newCityIndex := rand.Intn(numberOfCities - cityIndex)
+		item.CitySelectionOrder[cityIndex] = newCityIndex
+		item.Length = 0
+	}
+}
+
+func crossing(population []*Route) {
+	numberOfCrossing := int(populationLength / 4);
+	for i :=0; i<numberOfCrossing; i++ {
+		parentAIndex := rand.Intn(len(population))
+		parentBIndex := rand.Intn(len(population))
+		crossingPoint := rand.Intn(numberOfCities)
+
+		routeA := population[parentAIndex]
+		routeB := population[parentBIndex]
+
+		childOrder1 := append(routeA.CitySelectionOrder[:crossingPoint], routeB.CitySelectionOrder[crossingPoint:]...)
+		childOrder2 := append(routeB.CitySelectionOrder[:crossingPoint], routeA.CitySelectionOrder[crossingPoint:]...)
+
+		// replace parents
+		routeA.CitySelectionOrder = childOrder1
+		routeA.Length = 0
+
+		routeB.CitySelectionOrder = childOrder2
+		routeB.Length = 0
 	}
 }
 
