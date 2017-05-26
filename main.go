@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"math"
 )
 
 type City struct {
@@ -16,7 +17,9 @@ type Route struct {
 }
 
 func (r *Route) Estimate(cityList []City) {
-	cities:=selectCities(cityList, r.CitySelectionOrder)
+	cityListCopy := make([]City, len(cityList))
+	copy(cityListCopy, cityList)
+	cities:=selectCities(cityListCopy, r.CitySelectionOrder)
 	fmt.Println("City in Route")
 	fmt.Println(cities)
 }
@@ -47,16 +50,37 @@ func main() {
 	fmt.Println("Inital city list")
 	fmt.Println(cityList)
 
+	// calculate distances
+	distances := calculateDistances(cityList)
+	fmt.Println("Distances")
+	fmt.Println(distances)
+
 	population:=generateInitalPopulation()
 	fmt.Println("Population")
 	fmt.Println(population)
 
 	for _, item:=range population  {
-		cityListCopy := make([]City, len(cityList))
-		copy(cityListCopy, cityList)
-		item.Estimate(cityListCopy)
+		item.Estimate(cityList)
 	}
 
+}
+
+func calculateDistances(cityList []City) [][]float64 {
+	distances := make([][]float64, len(cityList))
+	for i, cityFrom := range cityList {
+		distances[i] = make([]float64, len(cityList))
+		for j, cityTo := range cityList {
+			distance := float64(0)
+			if cityFrom.Id != cityTo.Id {
+				squareSum := math.Pow(float64(cityFrom.X-cityTo.X), 2)+math.Pow(float64(cityFrom.Y-cityTo.Y), 2)
+				distance = math.Sqrt(squareSum)
+			}
+
+			distances[i][j] = distance
+		}
+	}
+
+	return distances
 }
 
 func generateInitalSelectionOrder() []int {
