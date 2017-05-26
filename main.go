@@ -9,6 +9,7 @@ import (
 	//"os"
 	//"log"
 	//"image/jpeg"
+	//"time"
 )
 
 type City struct {
@@ -62,11 +63,12 @@ func selectCitiesIds(cityList []int, citySelectionOrder []int) []int {
 }
 
 
-const populationLength = 10
+const populationLength = 100
 const numberOfCities = 10
 const maxCoordinate = 100
 
 func main() {
+	//rand.Seed(time.Now().UTC().UnixNano())
 	fmt.Println("gen2")
 
 	cityList := getCityList()
@@ -139,7 +141,7 @@ func main() {
 }
 
 func mutate(population []*Route) {
-	numberOfMutations := int(populationLength / 4);
+	numberOfMutations := int(populationLength * 1/100);
 	for i :=0; i<numberOfMutations; i++ {
 		itemIndex := rand.Intn(len(population))
 		item := population[itemIndex]
@@ -152,7 +154,7 @@ func mutate(population []*Route) {
 }
 
 func crossing(population []*Route) {
-	numberOfCrossing := int(populationLength / 4);
+	numberOfCrossing := int(populationLength * 10/100);
 	for i :=0; i<numberOfCrossing; i++ {
 		parentAIndex := rand.Intn(len(population))
 		parentBIndex := rand.Intn(len(population))
