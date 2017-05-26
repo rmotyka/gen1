@@ -14,18 +14,36 @@ type City struct {
 
 type Route struct {
 	CitySelectionOrder []int
+	Length float64
 }
 
-func (r *Route) Estimate(cityList []City) {
-	cityListCopy := make([]City, len(cityList))
-	copy(cityListCopy, cityList)
-	cities:=selectCities(cityListCopy, r.CitySelectionOrder)
+func (r *Route) Estimate(cityList []City, distances [][]float64) {
+	cityListIds := make([]int, len(cityList))
+	for i, city := range cityList  {
+		cityListIds[i] = city.Id
+	}
+
+	citiesInRouteOrder :=selectCitiesIds(cityListIds, r.CitySelectionOrder)
 	fmt.Println("City in Route")
-	fmt.Println(cities)
+	fmt.Println(citiesInRouteOrder)
+
+	routeLenght := float64(0)
+	previousCityId := -1
+	for _, cityId := range citiesInRouteOrder  {
+		if previousCityId != -1 {
+			l := distances[cityId][previousCityId]
+			routeLenght += l
+		}
+
+		previousCityId = cityId
+	}
+
+	r.Length = routeLenght
+	fmt.Println("Route lenght ", routeLenght)
 }
 
-func selectCities(cityList []City, citySelectionOrder []int) []City {
-	outCityList := make([]City, len(citySelectionOrder))
+func selectCitiesIds(cityList []int, citySelectionOrder []int) []int {
+	outCityList := make([]int, len(citySelectionOrder))
 	for i:=0; i<len(citySelectionOrder); i++ {
 		indexOfCity := citySelectionOrder[i]
 		city := cityList[indexOfCity]
@@ -55,28 +73,57 @@ func main() {
 	fmt.Println("Distances")
 	fmt.Println(distances)
 
+	// population
 	population:=generateInitalPopulation()
 	fmt.Println("Population")
-	fmt.Println(population)
-
-	for _, item:=range population  {
-		item.Estimate(cityList)
+	for _, item := range population	{
+		fmt.Println(*item)
 	}
 
+	// estimation
+	for _, item:=range population  {
+		item.Estimate(cityList, distances)
+	}
+
+	// selection
+	newPopulation:=make([]*Route, len(population))
+	for i:=0; i< populationLength; i++ {
+		item := selectFromPopulation(population)
+		newPopulation[i] = item
+	}
+
+	fmt.Println("new population")
+	for _, item := range newPopulation	{
+		fmt.Println(*item)
+	}
+}
+
+func selectFromPopulation(population []*Route) *Route {
+	const tourneySize = 10
+	var bestRoute *Route
+	for i := 0; i < tourneySize; i++ {
+		itemIndex := rand.Intn(len(population))
+		selectedItem := population[itemIndex]
+		if bestRoute == nil || selectedItem.Length < bestRoute.Length {
+			bestRoute = selectedItem
+		}
+	}
+
+	return bestRoute
 }
 
 func calculateDistances(cityList []City) [][]float64 {
 	distances := make([][]float64, len(cityList))
 	for i, cityFrom := range cityList {
 		distances[i] = make([]float64, len(cityList))
-		for j, cityTo := range cityList {
+		for _, cityTo := range cityList {
 			distance := float64(0)
 			if cityFrom.Id != cityTo.Id {
 				squareSum := math.Pow(float64(cityFrom.X-cityTo.X), 2)+math.Pow(float64(cityFrom.Y-cityTo.Y), 2)
 				distance = math.Sqrt(squareSum)
 			}
 
-			distances[i][j] = distance
+			distances[cityFrom.Id][cityTo.Id] = distance
 		}
 	}
 
@@ -101,11 +148,11 @@ func getCityList() ([]City) {
 	return cityList;
 }
 
-func generateInitalPopulation() ([]Route) {
-	population := make([]Route, populationLength)
+func generateInitalPopulation() ([]*Route) {
+	population := make([]*Route, populationLength)
 	for i := 0; i < populationLength; i++ {
 		citySelectionOrder :=generateInitalSelectionOrder()
-		population[i] = Route{ citySelectionOrder }
+		population[i] = &Route{ citySelectionOrder, 0}
 	}
 
 	return population
