@@ -11,7 +11,8 @@ import (
 	//"time"
 	"gen1/structs"
 	"gen1/selection"
-	"gen1/initialize"
+	"gen1/cities"
+	"gen1/initalPopulation"
 )
 
 
@@ -23,7 +24,7 @@ func main() {
 	//rand.Seed(time.Now().UTC().UnixNano())
 	fmt.Println("gen2")
 
-	cityList := initialize.GetCityList(numberOfCities, maxCoordinate)
+	cityList := cities.GetCityList(numberOfCities, maxCoordinate)
 	fmt.Println("Inital city list")
 	fmt.Println(cityList)
 
@@ -41,12 +42,12 @@ func main() {
 
 
 	// calculate distances
-	distances := initialize.CalculateDistances(cityList)
+	distances := cities.CalculateDistances(cityList)
 	fmt.Println("Distances")
 	fmt.Println(distances)
 
 	// population
-	population:=generateInitalPopulation()
+	population:=initalPopulation.GenerateInitialPopulation(populationLength, numberOfCities)
 	fmt.Println("Population")
 
 	// estimation
@@ -141,23 +142,4 @@ func crossing(population []*structs.Route) {
 		routeB.CitySelectionOrder = childOrder2
 		routeB.Length = 0
 	}
-}
-
-func generateInitalSelectionOrder() []int {
-	citySelectionOrder:=make([]int, numberOfCities)
-	for i := 0; i < numberOfCities; i++ {
-		citySelectionOrder[i] = rand.Intn(numberOfCities-i)
-	}
-
-	return citySelectionOrder
-}
-
-func generateInitalPopulation() ([]*structs.Route) {
-	population := make([]*structs.Route, populationLength)
-	for i := 0; i < populationLength; i++ {
-		citySelectionOrder :=generateInitalSelectionOrder()
-		population[i] = &structs.Route{ citySelectionOrder, 0}
-	}
-
-	return population
 }

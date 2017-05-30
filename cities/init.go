@@ -1,4 +1,4 @@
-package initialize
+package cities
 
 import (
 	"math/rand"
