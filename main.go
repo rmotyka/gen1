@@ -2,17 +2,17 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	//"image"
 	//"image/color"
 	//"os"
 	//"log"
 	//"image/jpeg"
 	//"time"
-	"gen1/structs"
 	"gen1/selection"
 	"gen1/cities"
 	"gen1/initalPopulation"
+	"gen1/mutation"
+	"gen1/crossing"
 )
 
 
@@ -81,7 +81,7 @@ func main() {
 
 		// crossing
 		// TODO: verify if it works
-		crossing(newPopulation)
+		crossing.Crossing(newPopulation, numberOfCities)
 
 		for _, item := range newPopulation {
 			item.Estimate(cityList, distances)
@@ -93,7 +93,7 @@ func main() {
 		}
 
 		// mutation
-		mutate(newPopulation)
+		mutation.Mutate(newPopulation, numberOfCities)
 
 		for _, item := range newPopulation {
 			item.Estimate(cityList, distances)
@@ -109,37 +109,3 @@ func main() {
 	}
 }
 
-func mutate(population []*structs.Route) {
-	numberOfMutations := int(populationLength * 1/100);
-	for i :=0; i<numberOfMutations; i++ {
-		itemIndex := rand.Intn(len(population))
-		item := population[itemIndex]
-
-		cityIndex := rand.Intn(numberOfCities)
-		newCityIndex := rand.Intn(numberOfCities - cityIndex)
-		item.CitySelectionOrder[cityIndex] = newCityIndex
-		item.Length = 0
-	}
-}
-
-func crossing(population []*structs.Route) {
-	numberOfCrossing := int(populationLength * 10/100);
-	for i :=0; i<numberOfCrossing; i++ {
-		parentAIndex := rand.Intn(len(population))
-		parentBIndex := rand.Intn(len(population))
-		crossingPoint := rand.Intn(numberOfCities)
-
-		routeA := population[parentAIndex]
-		routeB := population[parentBIndex]
-
-		childOrder1 := append(routeA.CitySelectionOrder[:crossingPoint], routeB.CitySelectionOrder[crossingPoint:]...)
-		childOrder2 := append(routeB.CitySelectionOrder[:crossingPoint], routeA.CitySelectionOrder[crossingPoint:]...)
-
-		// replace parents
-		routeA.CitySelectionOrder = childOrder1
-		routeA.Length = 0
-
-		routeB.CitySelectionOrder = childOrder2
-		routeB.Length = 0
-	}
-}
