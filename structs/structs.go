@@ -50,3 +50,15 @@ func selectCitiesIds(cityList []int, citySelectionOrder []int) []int {
 
 	return outCityList
 }
+
+type ByLenght []*Route
+
+func (s ByLenght) Len() int {
+	return len(s)
+}
+func (s ByLenght) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+func (s ByLenght) Less(i, j int) bool {
+	return s[i].Length < s[j].Length
+}

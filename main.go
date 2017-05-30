@@ -8,6 +8,8 @@ import (
 	"gen1/initalPopulation"
 	"gen1/mutation"
 	"gen1/crossing"
+	"sort"
+	"gen1/structs"
 )
 
 
@@ -46,14 +48,10 @@ func main() {
 	for cycleNumber := 0; cycleNumber < 5 ; cycleNumber++ {
 		fmt.Println("Number of cycle ", cycleNumber)
 
-		// estimation
-		for _, item := range population {
-			item.Estimate(cityList, distances)
-		}
-
 		// selection
 		newPopulation := selection.Select(population, populationLength)
 
+		sort.Sort(structs.ByLenght(newPopulation))
 		for _, item := range newPopulation {
 			item.Estimate(cityList, distances)
 		}
@@ -64,7 +62,6 @@ func main() {
 		}
 
 		// crossing
-		// TODO: verify if it works
 		crossing.Crossing(newPopulation, numberOfCities)
 
 		for _, item := range newPopulation {
@@ -72,6 +69,7 @@ func main() {
 		}
 
 		fmt.Println("after crossing")
+		sort.Sort(structs.ByLenght(newPopulation))
 		for _, item := range newPopulation {
 			fmt.Println(*item)
 		}

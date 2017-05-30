@@ -3,29 +3,32 @@ package crossing
 import (
 	"gen1/structs"
 	"math/rand"
+	"sort"
+	"fmt"
 )
 
 func Crossing(population []*structs.Route, numberOfCities int) {
-	//bestRoute := selection.SelectBestItem(population)
+	sort.Sort(structs.ByLenght(population))
 
-	numberOfCrossingItems := int(len(population)*10/100) * 2
-	itemsToCross := make([]*structs.Route, numberOfCrossingItems)
+	for i := 0; i < 10 ; i++ {
+		parentAIndex := rand.Intn(len(population) / 2)
+		parentBIndex := rand.Intn(len(population))
 
-	crossingIndexes := crossingIndexes(numberOfCrossingItems, len(population)-1)
+		fmt.Println("crossing indexeses ", parentAIndex, parentBIndex)
 
-	for i, index := range crossingIndexes {
-		item := population[index]
-		itemsToCross[i] = item
-	}
+		if parentAIndex == 0 || parentBIndex == 0 {
+			continue
+		}
 
-	for i := 0; i < numberOfCrossingItems/2; i++ {
-		routeA := population[crossingIndexes[i]]
-		routeB := population[crossingIndexes[i+numberOfCrossingItems/2]]
 		crossingPoint := rand.Intn(numberOfCities)
+
+		routeA := population[parentAIndex]
+		routeB := population[parentBIndex]
 
 		childOrder1 := append(routeA.CitySelectionOrder[:crossingPoint], routeB.CitySelectionOrder[crossingPoint:]...)
 		childOrder2 := append(routeB.CitySelectionOrder[:crossingPoint], routeA.CitySelectionOrder[crossingPoint:]...)
 
+		// replace parents
 		routeA.CitySelectionOrder = childOrder1
 		routeA.Length = 0
 
@@ -34,26 +37,3 @@ func Crossing(population []*structs.Route, numberOfCities int) {
 	}
 }
 
-func crossingIndexes(numberOfCrossingItems int, maxIndex int) []int {
-	indexes := make([]int, numberOfCrossingItems)
-	for i := 0; i<numberOfCrossingItems; i++ {
-		genOk := false
-		for !genOk {
-			genOk = true
-			newIndex := rand.Intn(maxIndex)
-			for j := 0; j < i; j++ {
-				if newIndex == indexes[j] {
-					genOk = false
-					break
-				}
-			}
-
-			if genOk {
-				indexes[i] = newIndex
-			}
-		}
-
-	}
-
-	return indexes
-}
