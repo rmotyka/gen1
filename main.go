@@ -15,6 +15,8 @@ const populationLength = 100
 const numberOfCities = 10
 const maxCoordinate = 100
 
+const enableMutation = false
+
 func main() {
 	//rand.Seed(time.Now().UTC().UnixNano())
 	fmt.Println("gen2")
@@ -74,16 +76,18 @@ func main() {
 			fmt.Println(*item)
 		}
 
-		// mutation
-		mutation.Mutate(newPopulation, numberOfCities)
+		if enableMutation {
+			// mutation
+			mutation.Mutate(newPopulation, numberOfCities)
 
-		for _, item := range newPopulation {
-			item.Estimate(cityList, distances)
-		}
+			for _, item := range newPopulation {
+				item.Estimate(cityList, distances)
+			}
 
-		fmt.Println("after mutation")
-		for _, item := range newPopulation {
-			fmt.Println(*item)
+			fmt.Println("after mutation")
+			for _, item := range newPopulation {
+				fmt.Println(*item)
+			}
 		}
 
 		// repeat

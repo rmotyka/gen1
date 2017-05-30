@@ -3,13 +3,16 @@ package selection
 import (
 	"gen1/structs"
 	"math/rand"
+	"fmt"
 )
 
 func Select(population []*structs.Route, populationLength int) []*structs.Route {
 	newPopulation := make([]*structs.Route, len(population))
 	// get the best chromosome and be sure to pass it further
-	bestRoute := selectBestItem(population)
+	bestRoute := SelectBestItem(population)
 	newPopulation[0] = &bestRoute
+
+	fmt.Println("THE BEST IS ", bestRoute)
 
 	for i := 1; i < populationLength; i++ {
 		item := selectFromPopulation(population)
@@ -19,7 +22,7 @@ func Select(population []*structs.Route, populationLength int) []*structs.Route 
 	return newPopulation
 }
 
-func selectBestItem(population []*structs.Route ) structs.Route {
+func SelectBestItem(population []*structs.Route ) structs.Route {
 	bestItem := population[0]
 	for i := 1; i < len(population); i++ {
 		if population[i].Length < bestItem.Length {
