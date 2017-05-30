@@ -10,6 +10,7 @@ import (
 	"gen1/crossing"
 	"sort"
 	"gen1/structs"
+	"gen1/graphics"
 )
 
 
@@ -44,6 +45,8 @@ func main() {
 	for _, item := range population	{
 		fmt.Println(*item)
 	}
+
+	graphics.SaveCityImage(maxCoordinate, cityList)
 
 	for cycleNumber := 0; cycleNumber < 5 ; cycleNumber++ {
 		fmt.Println("Number of cycle ", cycleNumber)
