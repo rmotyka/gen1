@@ -26,9 +26,9 @@ func Select(population []*structs.Route, populationLength int) []*structs.Route 
 }
 
 func selectFromPopulation(population []*structs.Route) structs.Route {
-	const tourneySize = 5
+	const tournamentSize = 5
 	var bestRoute *structs.Route
-	for i := 0; i < tourneySize; i++ {
+	for i := 0; i < tournamentSize; i++ {
 		itemIndex := rand.Intn(len(population))
 		selectedItem := population[itemIndex]
 		if bestRoute == nil || selectedItem.Length < bestRoute.Length {

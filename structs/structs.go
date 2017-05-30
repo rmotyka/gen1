@@ -11,6 +11,32 @@ type Route struct {
 	Length float64
 }
 
+func (r *Route) Equals(other *Route) bool {
+	a := r.CitySelectionOrder
+	b := other.CitySelectionOrder
+
+	if a == nil && b == nil {
+		return true;
+	}
+
+	if a == nil || b == nil {
+		return false;
+	}
+
+	if len(a) != len(b) {
+		return false
+	}
+
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+
+	return true
+
+}
+
 func (r *Route) Estimate(cityList []City, distances [][]float64) {
 	cityListIds := make([]int, len(cityList))
 	for i, city := range cityList  {
