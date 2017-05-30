@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e0ebe8d1-d3cd-4525-8988-f3bc255ea228" name="Default" comment="Init">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crossing/crossing.go" afterPath="$PROJECT_DIR$/crossing/crossing.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.go" afterPath="$PROJECT_DIR$/main.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/selection/selection.go" afterPath="$PROJECT_DIR$/selection/selection.go" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -62,25 +60,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="crossing.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="crossing.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/crossing/crossing.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="405">
+              <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding>
                 <element signature="e#18#57#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="crossing_test.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/crossing/crossing_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="17" column="51" lean-forward="false" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
-              <folding>
-                <element signature="e#18#46#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -110,8 +96,8 @@
         <option value="$PROJECT_DIR$/graphics/graphics.go" />
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/selection/selection.go" />
-        <option value="$PROJECT_DIR$/crossing/crossing.go" />
         <option value="$PROJECT_DIR$/crossing/crossing_test.go" />
+        <option value="$PROJECT_DIR$/crossing/crossing.go" />
       </list>
     </option>
   </component>
@@ -194,7 +180,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestCrossingIndexes in crossing_test.go">
+  <component name="RunManager" selected="Go Application.Unnamed">
     <configuration default="false" name="TestCrossingIndexes in crossing_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
       <module name="gen1" />
       <working_directory value="$PROJECT_DIR$/crossing" />
@@ -286,9 +272,6 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestCrossingIndexes_in_crossing_test_go - 2017.05.30 at 11h 34m 01s.xml">
-      <configuration name="TestCrossingIndexes in crossing_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
     <history-entry file="TestCrossingIndexes_in_crossing_test_go - 2017.05.30 at 11h 34m 41s.xml">
       <configuration name="TestCrossingIndexes in crossing_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
@@ -310,6 +293,15 @@
     <history-entry file="TestCrossingIndexes_in_crossing_test_go - 2017.05.30 at 11h 42m 35s.xml">
       <configuration name="TestCrossingIndexes in crossing_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
+    <history-entry file="TestCrossingIndexes_in_crossing_test_go - 2017.05.30 at 11h 49m 16s.xml">
+      <configuration name="TestCrossingIndexes in crossing_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestCrossingIndexes_in_crossing_test_go - 2017.05.30 at 11h 49m 18s.xml">
+      <configuration name="TestCrossingIndexes in crossing_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestCrossingIndexes_in_crossing_test_go - 2017.05.30 at 11h 49m 31s.xml">
+      <configuration name="TestCrossingIndexes in crossing_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -320,11 +312,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24918744" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26218852" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4409534" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4409534" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -361,7 +353,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="33" />
+      <option name="time" value="36" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -518,22 +510,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crossing/crossing.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="e#18#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crossing/crossing_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="17" column="51" lean-forward="false" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
           <folding>
             <element signature="e#18#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crossing/crossing.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <element signature="e#18#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
