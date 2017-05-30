@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"math"
 	//"image"
 	//"image/color"
 	//"os"
@@ -12,6 +11,7 @@ import (
 	//"time"
 	"gen1/structs"
 	"gen1/selection"
+	"gen1/initialize"
 )
 
 
@@ -23,7 +23,7 @@ func main() {
 	//rand.Seed(time.Now().UTC().UnixNano())
 	fmt.Println("gen2")
 
-	cityList := getCityList()
+	cityList := initialize.GetCityList(numberOfCities, maxCoordinate)
 	fmt.Println("Inital city list")
 	fmt.Println(cityList)
 
@@ -41,7 +41,7 @@ func main() {
 
 
 	// calculate distances
-	distances := calculateDistances(cityList)
+	distances := initialize.CalculateDistances(cityList)
 	fmt.Println("Distances")
 	fmt.Println(distances)
 
@@ -143,24 +143,6 @@ func crossing(population []*structs.Route) {
 	}
 }
 
-func calculateDistances(cityList []structs.City) [][]float64 {
-	distances := make([][]float64, len(cityList))
-	for i, cityFrom := range cityList {
-		distances[i] = make([]float64, len(cityList))
-		for _, cityTo := range cityList {
-			distance := float64(0)
-			if cityFrom.Id != cityTo.Id {
-				squareSum := math.Pow(float64(cityFrom.X-cityTo.X), 2)+math.Pow(float64(cityFrom.Y-cityTo.Y), 2)
-				distance = math.Sqrt(squareSum)
-			}
-
-			distances[cityFrom.Id][cityTo.Id] = distance
-		}
-	}
-
-	return distances
-}
-
 func generateInitalSelectionOrder() []int {
 	citySelectionOrder:=make([]int, numberOfCities)
 	for i := 0; i < numberOfCities; i++ {
@@ -168,15 +150,6 @@ func generateInitalSelectionOrder() []int {
 	}
 
 	return citySelectionOrder
-}
-
-func getCityList() ([]structs.City) {
-	cityList := make([]structs.City, numberOfCities)
-	for i := 0; i < numberOfCities; i++ {
-		cityList[i] = structs.City{ i,rand.Intn(maxCoordinate),rand.Intn(maxCoordinate)}
-	}
-
-	return cityList;
 }
 
 func generateInitalPopulation() ([]*structs.Route) {
