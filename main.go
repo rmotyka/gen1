@@ -93,5 +93,14 @@ func main() {
 
 		// repeat
 		population = newPopulation
+
+		// make graph
+		citiesIds := structs.SelectCitiesIds(cityList, population[0].CitySelectionOrder)
+		cities := make([]structs.City, len(citiesIds))
+		for i, cityId := range citiesIds  {
+			cities[i] = cityList[cityId]
+		}
+
+		graphics.SaveCityImage(maxCoordinate, cities)
 	}
 }

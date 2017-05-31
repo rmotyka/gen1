@@ -38,12 +38,7 @@ func (r *Route) Equals(other *Route) bool {
 }
 
 func (r *Route) Estimate(cityList []City, distances [][]float64) {
-	cityListIds := make([]int, len(cityList))
-	for i, city := range cityList  {
-		cityListIds[i] = city.Id
-	}
-
-	citiesInRouteOrder :=selectCitiesIds(cityListIds, r.CitySelectionOrder)
+	citiesInRouteOrder :=SelectCitiesIds(cityList, r.CitySelectionOrder)
 	//fmt.Println("City in Route")
 	//fmt.Println(citiesInRouteOrder)
 
@@ -63,15 +58,18 @@ func (r *Route) Estimate(cityList []City, distances [][]float64) {
 }
 
 
-func selectCitiesIds(cityList []int, citySelectionOrder []int) []int {
+func SelectCitiesIds(cityList []City, citySelectionOrder []int) []int {
+	tempCityList := make([]City, len(cityList))
+	copy(tempCityList, cityList)
+
 	outCityList := make([]int, len(citySelectionOrder))
 	for i:=0; i<len(citySelectionOrder); i++ {
 		indexOfCity := citySelectionOrder[i]
-		city := cityList[indexOfCity]
-		outCityList[i] = city
+		city := tempCityList[indexOfCity]
+		outCityList[i] = city.Id
 
 		// remove indexOfCity from cityList:
-		cityList = append(cityList[:indexOfCity], cityList[indexOfCity+1:]...)
+		tempCityList = append(tempCityList[:indexOfCity], tempCityList[indexOfCity+1:]...)
 	}
 
 	return outCityList
