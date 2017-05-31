@@ -9,17 +9,19 @@ import (
 	"sort"
 	"gen1/structs"
 	"math/rand"
+	"time"
 )
 
 
 const populationLength = 100
 const numberOfCities = 10
 const maxCoordinate = 100
+const numberOfCycles = 10000
 
 const enableMutation = false
 
 func main() {
-	//rand.Seed(time.Now().UTC().UnixNano())
+	rand.Seed(time.Now().UTC().UnixNano())
 	fmt.Println("gen3")
 
 	cityList := cities.GetCityList(numberOfCities, maxCoordinate)
@@ -49,9 +51,9 @@ func main() {
 
 	graphics.SaveCityImage("0", maxCoordinate, cityList)
 
-	var bestRoute *structs.Route
+	bestRoutesLib := make([]*structs.Route, numberOfCycles)
 
-	for cycleNumber := 0; cycleNumber < 1000 ; cycleNumber++ {
+	for cycleNumber := 0; cycleNumber < numberOfCycles ; cycleNumber++ {
 		fmt.Println("Number of cycle ", cycleNumber)
 
 		parentA := selection.SelectFromPopulation(population)
@@ -90,16 +92,18 @@ func main() {
 		//for _, item := range population	{
 		//	fmt.Println(*item)
 		//}
-		bestRoute = population[0]
-		fmt.Println(*bestRoute)
+		bestRoute := *population[0]
+		bestRoutesLib[cycleNumber] = &bestRoute
+		fmt.Println(bestRoutesLib[cycleNumber])
 
-		if bestRoute.Length < 300 {
+		if bestRoutesLib[cycleNumber].Length < 300 {
 			break
 		}
 	}
 
+	sort.Sort(structs.ByLenght(bestRoutesLib))
 
-	citiesIds := structs.SelectCitiesIds(cityList, bestRoute.CitySelectionOrder)
+	citiesIds := structs.SelectCitiesIds(cityList, bestRoutesLib[0].CitySelectionOrder)
 	cities := make([]structs.City, len(citiesIds))
 	for i, cityId := range citiesIds {
 		cities[i] = cityList[cityId]

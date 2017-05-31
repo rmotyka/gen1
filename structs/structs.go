@@ -84,5 +84,11 @@ func (s ByLenght) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 func (s ByLenght) Less(i, j int) bool {
+	if s[i] == nil {
+		return false
+	}
+	if s[j] == nil {
+		return true
+	}
 	return s[i].Length < s[j].Length
 }
