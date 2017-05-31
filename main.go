@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	//"time"
 	"gen1/selection"
 	"gen1/cities"
 	"gen1/initalPopulation"
@@ -48,7 +47,7 @@ func main() {
 
 	graphics.SaveCityImage(maxCoordinate, cityList)
 
-	for cycleNumber := 0; cycleNumber < 5 ; cycleNumber++ {
+	for cycleNumber := 0; cycleNumber < 10 ; cycleNumber++ {
 		fmt.Println("Number of cycle ", cycleNumber)
 
 		// selection
